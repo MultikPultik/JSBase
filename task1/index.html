@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            margin: 100px auto;
+        }
+
+        .row:last-child {
+            height: 20px;
+        }
+
+        .col {
+            width: 75px;
+            height: 75px;
+            background-color: bisque;
+            box-sizing: border-box;
+            outline: solid 1px;
+        }
+
+        .row:nth-child(odd) .col:nth-child(even){
+            background-color:grey;
+        }
+        .row:nth-child(even) .col:nth-child(odd){
+            background-color:grey;
+        }
+
+        .col1 {
+            width: 20px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .row:last-child > .letter {
+            height: 20px;
+            width: 75px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Создать функцию, генерирующую шахматную доску. При этом можно использовать любые html-теги по своему желанию. 
+    Доска должна быть разлинована соответствующим образом, т.е. чередовать черные и белые ячейки. Строки должны 
+    нумероваться числами от 1 до 8, столбцы – латинскими буквами A, B, C, D, E, F, G, H. -->
+
+    <script src="script.js"></script>
+</body>
+
+</html>
