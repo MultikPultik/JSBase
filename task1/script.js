@@ -2,55 +2,54 @@
 
 const chess = {
     mainContainer: null,
-    
+
     renderBoard() {
-        let row = null,
-            col = null;
+        let     rowEl = null,
+                colEl = null;
         const   colName = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
                 rowName = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
         this.init();
 
-        for (let i = 0; i < 9; i++) {
-            row = document.createElement("div");
-            row.className = "row";
-            this.mainContainer.appendChild(row);
-            if (i == 8) {
+        for (let row = 0; row < 9; row++) {
+            //контейнер для строки
+            rowEl = document.createElement("div");
+            rowEl.className = "row";
+            this.mainContainer.appendChild(rowEl);
+            if (row == 8) {
                 //последняя строка с буквенными колонками
-                for (let j = 0; j < 9; j++) {
-                    if (j == 0) {
-                        col = document.createElement("div");
-                        row.appendChild(col);
-                        col.className = "col1";
-                        
+                for (let col = 0; col < 9; col++) {
+                    if (col == 0) {
+                        colEl = document.createElement("div");
+                        rowEl.appendChild(colEl);
+                        colEl.className = "col1";
+
                     } else {
-                        col = document.createElement("div");
-                        row.appendChild(col);
-                        col.className = "letter";
-                        col.innerText = colName[j-1];
+                        colEl = document.createElement("div");
+                        rowEl.appendChild(colEl);
+                        colEl.className = "letter";
+                        colEl.innerText = colName[col - 1];
+                        
                     }
-    
                 }
             } else {
-                for (let j = 0; j < 9; j++) {
-                    if (j == 0) {
-                        //нумерованные строки
-                        col = document.createElement("div");
-                        row.appendChild(col);
-                        col.className = "col1";
-                        col.innerText = `${rowName[i]}`;
+                for (let col = 0; col < 9; col++) {
+                    if (col == 0) {
+                        //нумерованные колонки
+                        colEl = document.createElement("div");
+                        rowEl.appendChild(colEl);
+                        colEl.className = "col1";
+                        colEl.innerText = `${rowName[row]}`;
                     } else {
-                        col = document.createElement("div");
-                        row.appendChild(col);
-                        col.className = "col";
+                        colEl = document.createElement("div");
+                        rowEl.appendChild(colEl);
+                        colEl.className = "col";
                     }
-    
                 }
             }
-            
         }
     },
-    
+
     //Создаем контейнер для шахматной доски//
     init() {
         let body = null;
