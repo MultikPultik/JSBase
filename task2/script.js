@@ -4,35 +4,45 @@
  *  Объект корзины
  */
 let catalog = {
+    pathToImg: 'img/',
+    countImg: null,
+    eventImg: null,
+    stabImg: null,
     catalogDiv: null,
+    modalWindow: null,
     basket: {},
 
-    basketProducts: [
+    catalogProducts: [
         {
             productId: 10,
             productName: 'Телевизор LG',
             productPrice: 25000,
             productImg: "img/TV.jpg",
+            productModalImg: [`img/TV.jpg`, `img/img2.jpg`, `img/img3.jpg`, `img/img4.jpg`],
         },
         {
             productId: 20,
             productName: 'Держатель для телевизора',
             productPrice: 1000,
             productImg: "img/fixingPart.jpg",
+            productModalImg: [`img/fixingPart.jpg`, `img/img2.jpg`, `img/img3.jpg`, `img/img4.jpg`],
         },
         {
             productId: 30,
             productName: 'Батарейки для пульта',
             productImg: "img/battary.jpg",
             productPrice: 60,
+            productModalImg: [`img/battary.jpg`, `img/img2.jpg`, `img/img3.jpg`, `img/img4.jpg`],
         },
         {
             productId: 40,
             productName: 'Подписка "Русское кино"',
             productPrice: 680,
             productImg: "img/subscribe.jpg",
+            productModalImg: [`img/subscribe.jpg`, `img/img2.jpg`, `img/img3.jpg`, `img/img4.jpg`],
         },
     ],
+
 
     /* 
      * Метод инициальзации каталога
@@ -41,6 +51,8 @@ let catalog = {
     init(basket) {
         this.catalogDiv = document.getElementById("catalog");
         this.basket = basket;
+        this.modalWindow = document.getElementsByClassName('modalWindow');
+        this.stabImg = document.getElementsByClassName('stabImg');
         this.render();
         this.setEventHandlers();
     },
@@ -49,41 +61,94 @@ let catalog = {
      * Метод визуализации каталога
     */
     render() {
-        if (this.basketProducts.length) {
-            this.basketProducts.forEach(product => {
+        if (this.catalogProducts.length) {
+            this.catalogProducts.forEach(product => {
                 this.catalogDiv.insertAdjacentHTML('beforeend', this.contentItemHTML(product));
             });
         }
     },
 
     /* 
-     * Метод обработки событий
+     * Метод установки обработчиков событий
     */
     setEventHandlers() {
-        this.catalogDiv.addEventListener('click', event => this.addToBasket(event));
+        this.catalogDiv.addEventListener('click', event => this.catalogEvent(event));
+        this.modalWindow[0].addEventListener('click', event => this.modalWindowHandler(event));
     },
 
     /* 
-     * Метод добавления в корзину товара
+     * Метод обработки событий модального окна
     */
-    addToBasket(event) {
-        if (event.target.classList.contains('btnCatalogItem')) {
-            const product_id = +event.target.dataset.product_id;
-            // console.log(product_id);
-            this.basket.addToBasket(product_id);
+    modalWindowHandler(event) {
+
+        if (event.target.classList.contains('fa-window-close')) {
+            this.modalWindow[0].classList.remove("activ");
+        } else if (event.target.classList.contains('fa-arrow-left')) {
+            this.listingDownImg(this.eventImg);
+        } else if (event.target.classList.contains('fa-arrow-right')) {
+            this.listingUpImg(this.eventImg);
         } else {
             return;
         }
-
     },
 
     /* 
-    * Метод добавления разметки для представления товара
+     * Метод обработки события по стрелке Left
+     * @param event - указатель на товар 
+    */
+    listingUpImg(event) {
+        // Получаем ID товара
+        const product_id = +event.target.dataset.product_id;
+        // Получаем индекс товара
+        const productIndex = this.catalogProducts.findIndex(product => product.productId === product_id);
+
+        if (this.countImg < this.catalogProducts[productIndex].productModalImg.length - 1) {
+            this.stabImg[0].src = this.catalogProducts[productIndex].productModalImg[++this.countImg];
+        }
+    },
+
+    /* 
+     * Метод обработки события по стрелке Right
+     * @param event - указатель на товар 
+    */
+    listingDownImg(event) {
+        // Получаем ID товара
+        const product_id = +event.target.dataset.product_id;
+        // Получаем индекс товара
+        const productIndex = this.catalogProducts.findIndex(product => product.productId === product_id);
+
+        if (this.countImg >= 1 && this.countImg <= this.catalogProducts[productIndex].productModalImg.length - 1) {
+            this.stabImg[0].src = this.catalogProducts[productIndex].productModalImg[--this.countImg];
+        }
+    },
+
+    /* 
+     * Метод обработки событий каталога
+    */
+    catalogEvent(event) {
+        const product_id = +event.target.dataset.product_id;
+        const productIndex = this.catalogProducts.findIndex(product => product.productId === product_id);
+
+        if (event.target.classList.contains('btnCatalogItem')) {
+            this.basket.addToBasket(product_id);
+        } else if (event.target.classList.contains('imgCatalogItem')) {
+            this.eventImg = event;
+            this.modalWindow[0].classList.add("activ"); //Показываем модальное окно
+            this.stabImg[0].src = this.catalogProducts[productIndex].productModalImg[0]; //
+            this.countImg = 0;
+        } else {
+            return;
+        }
+    },
+
+
+    /* 
+    * Метод добавления разметки HTML для визуализации товара
     */
     contentItemHTML(product) {
 
         return `<div class="productWrap">
-                <img src="${product.productImg}" alt="picture">
+                <img src="${product.productImg}" data-product_id="${product.productId}" alt="picture" class="imgCatalogItem">
                 <div><b>Наименование</b>: ${product.productName}</div>
                 <div><b>Цена</b>: ${product.productPrice} руб.</div>
                 <button class="btnCatalogItem" data-product_id="${product.productId}">Купить</button>
@@ -99,7 +164,6 @@ let basket = {
     basketWrap: null,
     basketBtn: null,
     basketDescr: null,
-
     catalogList: [],
     basketProducts: [],
 
@@ -180,7 +244,7 @@ let basket = {
 };
 
 catalog.init(basket);
-basket.init(catalog.basketProducts);
+basket.init(catalog.catalogProducts);
 
 
 

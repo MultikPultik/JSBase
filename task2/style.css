@@ -1,0 +1,109 @@
+h1 {
+    text-align: center;
+}
+
+.container {
+    margin: 100px auto;
+    max-width: 1424px;
+    position: relative;
+}
+
+.product {
+    margin: 10px;
+    background-color: bisque;
+    border: 1px solid black;
+    min-height: 100px;
+}
+
+img {
+    box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25), 0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6px hsla(0, 0%, 0%, 0.03);
+    margin-bottom: 20px;
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
+}
+
+#catalog {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.productWrap {
+    margin: 10px;
+}
+
+.basketWrap,
+button {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    cursor: pointer;
+}
+
+.modalWindow {
+    display: none;
+    background-color: rgba(146, 140, 129, 0.8);
+    box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25), 0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6px hsla(0, 0%, 0%, 0.03);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    top: 0;
+}
+
+.modalWindowWrap {
+    width: inherit;
+    height: inherit;
+    /* padding: 20px; */
+    position: relative;
+}
+
+.modalWindowWrap>i {
+    font-size: 30px;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+.imgWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.imgWrap i {
+    font-size: 100px;
+    cursor: pointer;
+}
+
+.imgWrap img {
+    margin-bottom: 0;
+    height: 600px;
+    width: 600px;
+    cursor: inherit;
+    background-color: khaki;
+}
+
+.activ {
+    display: block;
+}
+
+.stabImg {
+    width: 600px;
+    height: 600px;
+    box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25), 0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6px hsla(0, 0%, 0%, 0.03);
+    background-color: grey;
+    font-size: 40px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* display: none; */
+
+}
