@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeWork 6</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 2 *У товара может быть несколько изображений. Нужно:
+         a. Реализовать функционал показа полноразмерных картинок товара в модальном окне
+         b. Реализовать функционал перехода между картинками внутри модального окна ("листалка") -->
+
+
+    <div class="container">
+        <h1>Каталог товаров</h1>
+        <br>
+        <div id="catalog">
+        </div>
+
+        <br>
+        <hr>
+        <h1>Корзина</h1>
+        <div class="basketWrap">
+        </div>
+        <div class="basketTotalDescr"></div>
+        <button class="basketBtn">Очистить корзину</button>
+
+        <div class="modalWindow">
+            <div class="modalWindowWrap">
+                <i class="far fa-window-close"></i>
+                <div class="imgWrap">
+                    <i class="fas fa-arrow-left"></i>
+                    <img src="img/img1.jpg" alt="" class="stabImg">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
