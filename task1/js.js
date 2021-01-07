@@ -9,6 +9,7 @@ const settings = {
 
 const config = {
     settings,
+    
     init(userSettings) {
         Object.assign(this.settings, userSettings);
     },
@@ -140,6 +141,10 @@ const snake = {
         this.getBody().push(lastBodyPointClone);
     },
 
+    getAteFood() {
+        return this.getBody().length;
+    },
+
     getNextStepHeadPoint() {
         const firstPoint = this.getBody()[0];
 
@@ -205,12 +210,30 @@ const status = {
     },
 };
 
+const score = {
+    score: null,
+    winScore: null,
+
+    init(userSettings){
+        document.getElementById('countGame').innerHTML = '<h1>Счет в игре: <span id="score">0</span> / <span id="winScore"></span></h1>';
+        document.getElementById('winScore').innerText = `${userSettings}`;
+
+        this.score = document.getElementById('score');
+    },
+
+    setScore(score){
+        this.score.innerText = `${snake.getAteFood()}`;
+    }
+
+};
+
 const game = {
     config,
     map,
     snake,
     food,
     status,
+    score,
     tickInterval: null,
 
     init(userSettings) {
@@ -226,7 +249,7 @@ const game = {
         }
 
         this.map.init(this.config.getRowsCount(), this.config.getColsCount());
-
+        
         this.setEventHandlers();
         this.reset();
     },
@@ -236,6 +259,7 @@ const game = {
         this.snake.init(this.getStartSnakeBody(), 'up');
         this.food.setCoordinates(this.getRandomFreeCoordinates());
         this.render();
+        this.score.init(this.config.getWinFoodCount());
     },
 
     render() {
@@ -255,6 +279,7 @@ const game = {
 
         if (this.food.isOnPoint(this.snake.getNextStepHeadPoint())) {
             this.snake.growUp();
+            this.score.setScore();
             this.food.setCoordinates(this.getRandomFreeCoordinates());
 
             if (this.isGameWon()) {
@@ -332,7 +357,7 @@ const game = {
     },
 
     keyDownHandler(event) {
-        if (!this.status.isPlaying()) {return;}
+        if (!this.status.isPlaying()) { return; }
 
         const direction = this.getDirectionByCode(event.code);
 
