@@ -9,7 +9,7 @@ const settings = {
 
 const config = {
     settings,
-    
+
     init(userSettings) {
         Object.assign(this.settings, userSettings);
     },
@@ -142,7 +142,7 @@ const snake = {
     },
 
     getAteFood() {
-        return this.getBody().length;
+        return this.getBody().length - 1;
     },
 
     getNextStepHeadPoint() {
@@ -214,14 +214,14 @@ const score = {
     score: null,
     winScore: null,
 
-    init(userSettings){
+    init(userSettings) {
         document.getElementById('countGame').innerHTML = '<h1>Счет в игре: <span id="score">0</span> / <span id="winScore"></span></h1>';
         document.getElementById('winScore').innerText = `${userSettings}`;
 
         this.score = document.getElementById('score');
     },
 
-    setScore(score){
+    setScore() {
         this.score.innerText = `${snake.getAteFood()}`;
     }
 
@@ -249,7 +249,7 @@ const game = {
         }
 
         this.map.init(this.config.getRowsCount(), this.config.getColsCount());
-        
+
         this.setEventHandlers();
         this.reset();
     },

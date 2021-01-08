@@ -47,6 +47,10 @@ td.cell {
     background: #9b0013;
 }
 
+.obstacle {
+    background: #eea405;
+}
+
 .disabled {
     background: #7c7c7c;
 }
